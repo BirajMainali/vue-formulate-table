@@ -3,11 +3,11 @@
     <template #header>
       <div style="display: flex!important; column-gap: 2px">
         <InputText type="text" placeholder="Header" v-model="header"/>
-        <AAutocomplete :items="suggestions" v-model="selectedOper"/>
+        <AAutocomplete :items="suggestions" v-model="selectedOperators"/>
         <Button @click="formulate">Apply</Button>
       </div>
     </template>
-    <Column v-for="col in decoratedColumns" :header="col.header" :field="col.field" :sortable="col.sortable"/>
+    <Column v-for="col in columns" :header="col.header" :field="col.field" :sortable="col.sortable"/>
   </DataTable>
 </template>
 
@@ -25,21 +25,13 @@ const products = ref(
       quantity: Math.floor(Math.random() * 1000),
     })));
 
-
-const columns = ref([
-  {id: 1, header: "Name", field: "name", sortable: true},
-  {id: 2, header: "Purchase Price", field: "purchasePrice", sortable: true},
-  {id: 3, header: "Sale Price", field: "salePrice", sortable: true},
-  {id: 4, header: "Quantity", field: "quantity", sortable: true},
-])
-
 const {
-  header: header,
-  columns: decoratedColumns,
-  suggestions : suggestions,
-  selectedOperators: selectedOper,
+  header,
+  columns,
+  suggestions,
+  selectedOperators,
   formulate
-} = useFormulator(products, columns);
+} = useFormulator(products);
 
 
 </script>
@@ -49,6 +41,7 @@ const {
 .p-autocomplete-token-icon {
   display: none !important;
 }
+
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   border-radius: unset !important;
 }
