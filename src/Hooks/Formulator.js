@@ -38,7 +38,6 @@ export const useFormulator = (items, columns) => {
         opers.value = [];
     }
     const appendColumn = () => {
-        if (!header.value) return;
         const existingColumns = columns.value.find((column) => column.field === getNormalizedHeader());
         if (existingColumns) return;
         columns.value.push({
@@ -49,8 +48,8 @@ export const useFormulator = (items, columns) => {
         });
     }
     const formulate = () => {
+        if (!opers.value.length && !header.value) return;
         appendColumn();
-        if (!opers.value.length) return;
         const [headerKey, toEvaluate] = [getNormalizedHeader(), getNormalizedOper()];
         items.value.forEach((x) => {
             x[headerKey] = eval(toEvaluate);
