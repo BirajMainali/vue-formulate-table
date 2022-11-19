@@ -10,6 +10,7 @@
                 :auto-highlight="false"
                 :complete-on-focus="true"
                 @keyup="onkeyup($event)"
+                placeholder="formula"
                 class="flex align-items-stretch w-full"
                 @complete="onComplete($event)"
   >
