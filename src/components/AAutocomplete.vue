@@ -1,18 +1,15 @@
 <template>
-  <AutoComplete ref="autoCompleteRef"
-                v-model="item"
-                :suggestions="filteredItemList"
-                field="label"
-                key="id"
-                :dropdown-mode="'current'"
-                multiple
-                :append-to="'body'"
-                :auto-highlight="false"
-                :complete-on-focus="true"
-                @keyup="onkeyup($event)"
-                placeholder="formula"
-                class="flex align-items-stretch w-full"
-                @complete="onComplete($event)"
+  <AutoComplete
+      v-model="item"
+      :suggestions="suggestions"
+      field="label"
+      key="id"
+      multiple
+      :auto-highlight="false"
+      :complete-on-focus="true"
+      @keyup="onkeyup($event)"
+      placeholder="formula"
+      @complete="onComplete($event)"
   >
   </AutoComplete>
 
@@ -36,23 +33,22 @@ const emit = defineEmits([
 ]);
 
 
-const autoCompleteRef = ref(null);
 
 const item = ref(props.modelValue);
-const itemList = ref(props.items);
+const items = ref(props.items);
 const query = ref("");
-const filteredItemList = ref([]);
+const suggestions = ref([]);
 
 const onComplete = event => {
   query.value = event.query;
   const queryNormalized = query.value.trim().toLowerCase();
 
   if (!event.query.trim().length) {
-    if (itemList.value) {
-      filteredItemList.value = [...itemList.value];
+    if (items.value) {
+      suggestions.value = [...items.value];
     }
   } else {
-    filteredItemList.value = itemList.value.filter(x => x.value.toLowerCase().includes(queryNormalized));
+    suggestions.value = items.value.filter(x => x.value.toLowerCase().includes(queryNormalized));
   }
 };
 
@@ -60,7 +56,7 @@ watch(() => props.modelValue, (newValue) => {
   item.value = newValue;
 })
 watch(() => props.items, (value) => {
-  itemList.value = value;
+  items.value = value;
 })
 
 watch(() => item.value, () => {

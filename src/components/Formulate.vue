@@ -13,7 +13,7 @@
 
 <script setup>
 import {ref} from "vue";
-import {useFormulator} from "../Hooks/Formulator.js";
+import {useFormulator} from "../hooks/Formulator.js";
 import AAutocomplete from "./AAutocomplete.vue";
 
 const products = ref(
@@ -36,8 +36,8 @@ const columns = ref([
 const {
   header: header,
   columns: decoratedColumns,
-  oprSuggestions : suggestions,
-  opers: selectedOper,
+  suggestions : suggestions,
+  selectedOperators: selectedOper,
   formulate
 } = useFormulator(products, columns);
 
