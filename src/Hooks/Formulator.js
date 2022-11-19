@@ -11,6 +11,12 @@ export const useFormulator = (items, columns) => {
             value: column.field,
             type: "column",
         })),
+        ...Array.from({length: 100}, (_, i) => ({
+            id: i + 1,
+            label: `${i + 1}`,
+            value: `${i + 1}`,
+            type: 'numeric',
+        })),
         {id: 7, label: "(", value: "(", type: 'oper'},
         {id: 8, label: ")", value: ")", type: 'oper'},
         {id: 9, label: "+", value: "+", type: 'oper'},
@@ -21,7 +27,11 @@ export const useFormulator = (items, columns) => {
     ]);
 
     const getNormalizedHeader = () => header.value.replace(/\s/g, "_");
-    const getNormalizedOper = () => opers.value.map((oper) => oper.type === "column" ? "x." + oper.value : oper.value).join(" ");
+    const getNormalizedOper = () => opers.value.map((oper) => {
+        if (oper.type === 'column') return "x." + oper.value;
+        if (oper.type === 'numeric') return parseFloat(oper.value);
+        return oper.value;
+    }).join(" ");
 
     const clearInputsOnComplete = () => {
         header.value = null;

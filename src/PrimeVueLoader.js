@@ -1,8 +1,7 @@
 /* eslint-disable */
 
 import 'primevue/resources/primevue.min.css';
-import 'primevue/resources/themes/fluent-light/theme.css'
-import 'primevue/resources/themes/tailwind-light/theme.css'
+import 'primevue/resources/themes/mdc-light-indigo/theme.css'
 import 'primeicons/primeicons.css';
 
 
